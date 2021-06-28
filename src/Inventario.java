@@ -10,8 +10,9 @@ public class Inventario {
        this.listaProductos.add(producto); 
     }
     public void informarPrecios(){
-        for (Producto producto : listaProductos) {
-            System.out.println(producto);
+        for (Producto producto : this.listaProductos) {
+            System.out.println(
+                "Precio de venta para "+ producto.getNombre() +" :$"+ producto.getPrecio());
         }
     }
 }
