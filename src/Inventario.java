@@ -12,22 +12,28 @@ public class Inventario {
     public void informarPrecios(){
         for (Producto producto : this.listaProductos) {
             System.out.println(
-                "Precio de venta para "+ producto.getNombre() +" :$"+ calcularPrecioVenta(producto.getPrecio(), producto.getStock()));
+                "Precio de venta para "+ producto.getNombre() +" :$"+ calcularPrecioVenta(producto.getPrecio(), producto.getStock(),producto.getPromocional()));
         }
     }
-    private double calcularPrecioVenta(double precioCompra, int stock){
+    private double calcularPrecioVenta(double precioCompra, int stock ,boolean promocion){
         double precioFinal;
         double ganancia;
         double iva;
 
         iva = precioCompra*0.21;
-        if((precioCompra>1500 && stock<1500) || stock <50){
-            ganancia = precioCompra*0.15;
+        if (promocion){
+            precioFinal=precioCompra+iva;
         }
         else{
-            ganancia = precioCompra*0.20;
+            if((precioCompra>1500 && stock<1500) || stock <50){
+                ganancia = precioCompra*0.15;
+            }
+            else{
+                ganancia = precioCompra*0.20;
+            }
+            precioFinal = precioCompra+ganancia+iva;
         }
-        precioFinal = precioCompra+ganancia+iva;
+        
 
         return precioFinal;
     }
