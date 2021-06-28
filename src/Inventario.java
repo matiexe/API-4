@@ -10,10 +10,16 @@ public class Inventario {
        this.listaProductos.add(producto); 
     }
     public void informarPrecios(){
+        double precioVenta;
+        double listaPreciosVentas[];
+        listaPreciosVentas = new double[listaProductos.size()];
         for (Producto producto : this.listaProductos) {
-            System.out.println(
-                "Precio de venta para "+ producto.getNombre() +" :$"+ calcularPrecioVenta(producto.getPrecio(), producto.getStock(),producto.getPromocional()));
+            precioVenta = calcularPrecioVenta(producto.getPrecio(), producto.getStock(),producto.getPromocional());
+            listaPreciosVentas[this.listaProductos.indexOf(producto)] = precioVenta;
+            System.out.println("Precio de venta para "+ producto.getNombre() +" :$"+ precioVenta);
         }
+        System.out.println("Total de precio de compras: $"+ sumatoriaPreciosCompra());
+        System.out.println("Total de precio de ventas : $"+ sumatoriaPreciosVenta(listaPreciosVentas));
     }
     private double calcularPrecioVenta(double precioCompra, int stock ,boolean promocion){
         double precioFinal;
@@ -36,5 +42,20 @@ public class Inventario {
         
 
         return precioFinal;
+    }
+
+    private double sumatoriaPreciosCompra(){
+        double sumatoria = 0;
+        for (Producto producto : listaProductos) {
+            sumatoria = sumatoria + producto.getPrecio();
+        }
+        return sumatoria;
+    }
+    private double sumatoriaPreciosVenta(double listaPreciosVentas[]){
+        double sumatoria = 0;
+        for (int i = 0; i < listaPreciosVentas.length; i++) {
+            sumatoria = sumatoria + listaPreciosVentas[i]; 
+        }
+        return sumatoria;
     }
 }
